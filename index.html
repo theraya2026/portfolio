@@ -1,0 +1,488 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>my-portfolio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    background: #0f172a;
+    color: #e0e7ff;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+  }
+  header {
+    background: #1e293b;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  nav .logo {
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: #64748b;
+    letter-spacing: 2px;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+  }
+  nav ul li a {
+    text-decoration: none;
+    color: #cbd5e1;
+    font-weight: 600;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: color 0.3s ease;
+  }
+  nav ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 0;
+    height: 2px;
+    background: #6366f1;
+    transition: width 0.3s ease;
+  }
+  nav ul li a:hover,
+  nav ul li a:focus {
+    color: #6366f1;
+  }
+  nav ul li a:hover::after,
+  nav ul li a:focus::after {
+    width: 100%;
+  }
+  main {
+    padding: 3rem 1rem 6rem;
+  }
+  .intro {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .intro h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #6366f1;
+  }
+  .intro p {
+    font-size: 1.25rem;
+    color: #94a3b8;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  section {
+    margin-bottom: 4rem;
+  }
+  h2.section-title {
+    font-size: 2rem;
+    color: #6366f1;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #4f46e5;
+    padding-bottom: 0.25rem;
+    max-width: 200px;
+  }
+  /* Projects */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 2rem;
+  }
+  .project-card {
+    background: #1e293b;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(99,102,241,0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .project-card:hover,
+  .project-card:focus-within {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(99,102,241,0.6);
+  }
+  .project-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+  }
+  .project-content {
+    padding: 1rem 1.25rem 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .project-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #e0e7ff;
+  }
+  .project-desc {
+    flex-grow: 1;
+    color: #94a3b8;
+    margin-bottom: 1rem;
+  }
+  .project-links {
+    margin-top: auto;
+    display: flex;
+    gap: 1rem;
+  }
+  .project-links a {
+    text-decoration: none;
+    color: #6366f1;
+    font-weight: 600;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    padding: 0.3rem 0.75rem;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .project-links a svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+  }
+  .project-links a:hover,
+  .project-links a:focus {
+    background-color: #6366f1;
+    color: #e0e7ff;
+    border-color: #6366f1;
+  }
+  /* Skills */
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .skill {
+    background: #334155;
+    color: #cbd5e1;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    user-select: none;
+    cursor: default;
+    transition: background-color 0.3s ease;
+  }
+  .skill:hover,
+  .skill:focus {
+    background: #4f46e5;
+    color: #e0e7ff;
+  }
+  /* Contact Form */
+  form {
+    max-width: 480px;
+    margin: 0 auto;
+    background: #1e293b;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(99,102,241,0.3);
+  }
+  label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+    color: #cbd5e1;
+  }
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.5rem;
+    border: none;
+    border-radius: 8px;
+    background: #334155;
+    color: #e0e7ff;
+    font-size: 1rem;
+    font-family: inherit;
+    resize: vertical;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  textarea:focus {
+    outline: none;
+    background: #464f71;
+    box-shadow: 0 0 0 3px #6366f1;
+  }
+  button[type="submit"] {
+    width: 100%;
+    background: #6366f1;
+    border: none;
+    color: #e0e7ff;
+    padding: 0.75rem 0;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button[type="submit"]:hover,
+  button[type="submit"]:focus {
+    background: #4f46e5;
+  }
+  footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: #1e293b;
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+  /* Responsive Nav Hamburger */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 28px;
+    height: 22px;
+    cursor: pointer;
+  }
+  .nav-toggle span {
+    display: block;
+    height: 3px;
+    background: #64748b;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  @media (max-width: 640px) {
+    nav ul {
+      position: fixed;
+      top: 60px;
+      right: -100%;
+      background: #0f172a;
+      flex-direction: column;
+      width: 200px;
+      height: calc(100% - 60px);
+      padding-top: 2rem;
+      gap: 1.5rem;
+      transition: right 0.3s ease;
+      box-shadow: -4px 0 10px rgba(0,0,0,0.5);
+    }
+    nav ul.open {
+      right: 0;
+    }
+    nav ul li a {
+      font-size: 1.2rem;
+      padding: 0.5rem 1.5rem;
+    }
+    .nav-toggle {
+      display: flex;
+    }
+    .nav-toggle.open span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .nav-toggle.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .nav-toggle.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <nav aria-label="Primary Navigation">
+      <a href="#home" class="logo" aria-label="my-portfolio home">my-portfolio</a>
+      <button class="nav-toggle" aria-controls="primary-navigation" aria-expanded="false" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul id="primary-navigation" role="menu" tabindex="-1">
+        <li role="none"><a role="menuitem" href="#home">Home</a></li>
+        <li role="none"><a role="menuitem" href="#projects">Projects</a></li>
+        <li role="none"><a role="menuitem" href="#skills">Skills</a></li>
+        <li role="none"><a role="menuitem" href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main>
+  <section id="home" class="intro" tabindex="0">
+    <h1>Welcome to my-portfolio</h1>
+    <p>Hi! I'm a passionate web developer creating engaging, beautiful, and user-friendly digital experiences. Explore my projects, skills, and feel free to get in touch.</p>
+  </section>
+
+  <section id="projects" aria-labelledby="projects-title">
+    <h2 class="section-title" id="projects-title">Projects</h2>
+    <div class="projects-grid">
+      <article class="project-card" tabindex="0" aria-label="Project: Portfolio Website">
+        <img src="https://images.unsplash.com/photo-1506765515384-028b60a970df?auto=format&fit=crop&w=640&q=80" alt="Screenshot of Portfolio Website" class="project-img" loading="lazy" />
+        <div class="project-content">
+          <h3 class="project-title">Portfolio Website</h3>
+          <p class="project-desc">A responsive portfolio website built with HTML, CSS, and JavaScript to showcase my work and skills.</p>
+          <div class="project-links">
+            <a href="https://github.com/username/portfolio" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository for Portfolio Website">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2.2c-3.2.7-3.8-1.5-3.8-1.5-.5-1.3-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.2.1 1.8 1.3 1.8 1.3 1 .1 1.5-.8 1.5-.8.8-1.4 2.1-1 2.6-.8.1-.6.4-1 .7-1.3-2.5-.3-5.1-1.3-5.1-5.8 0-1.3.5-2.5 1.2-3.4-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.3 11.3 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.7.9 1.2 2.1 1.2 3.4 0 4.5-2.6 5.4-5.1 5.8.4.3.7 1 .7 2v3c0 .3.2.7.8.6 4.6-1.4 7.9-5.8 7.9-10.9C23.5 5.65 18.35.5 12 .5z"></path></svg>
+              Code
+            </a>
+            <a href="https://username.github.io/portfolio" target="_blank" rel="noopener noreferrer" aria-label="Live demo of Portfolio Website">
+              Live
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card" tabindex="0" aria-label="Project: Task Manager App">
+        <img src="https://images.unsplash.com/photo-1555617117-08a3c047d0ff?auto=format&fit=crop&w=640&q=80" alt="Screenshot of Task Manager App" class="project-img" loading="lazy" />
+        <div class="project-content">
+          <h3 class="project-title">Task Manager App</h3>
+          <p class="project-desc">A full-stack task management app built with React and Node.js, featuring user authentication and real-time updates.</p>
+          <div class="project-links">
+            <a href="https://github.com/username/task-manager" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository for Task Manager App">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2.2c-3.2.7-3.8-1.5-3.8-1.5-.5-1.3-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.2.1 1.8 1.3 1.8 1.3 1 .1 1.5-.8 1.5-.8.8-1.4 2.1-1 2.6-.8.1-.6.4-1 .7-1.3-2.5-.3-5.1-1.3-5.1-5.8 0-1.3.5-2.5 1.2-3.4-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.3 11.3 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.7.9 1.2 2.1 1.2 3.4 0 4.5-2.6 5.4-5.1 5.8.4.3.7 1 .7 2v3c0 .3.2.7.8.6 4.6-1.4 7.9-5.8 7.9-10.9C23.5 5.65 18.35.5 12 .5z"></path></svg>
+              Code
+            </a>
+            <a href="https://taskmanager.example.com" target="_blank" rel="noopener noreferrer" aria-label="Live demo of Task Manager App">
+              Live
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card" tabindex="0" aria-label="Project: Blog Platform">
+        <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=640&q=80" alt="Screenshot of Blog Platform" class="project-img" loading="lazy" />
+        <div class="project-content">
+          <h3 class="project-title">Blog Platform</h3>
+          <p class="project-desc">A modern blogging platform with markdown support, built with Gatsby and GraphQL for fast performance.</p>
+          <div class="project-links">
+            <a href="https://github.com/username/blog-platform" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository for Blog Platform">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2.2c-3.2.7-3.8-1.5-3.8-1.5-.5-1.3-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.2.1 1.8 1.3 1.8 1.3 1 .1 1.5-.8 1.5-.8.8-1.4 2.1-1 2.6-.8.1-.6.4-1 .7-1.3-2.5-.3-5.1-1.3-5.1-5.8 0-1.3.5-2.5 1.2-3.4-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.3 11.3 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.7.9 1.2 2.1 1.2 3.4 0 4.5-2.6 5.4-5.1 5.8.4.3.7 1 .7 2v3c0 .3.2.7.8.6 4.6-1.4 7.9-5.8 7.9-10.9C23.5 5.65 18.35.5 12 .5z"></path></svg>
+              Code
+            </a>
+            <a href="https://blog.example.com" target="_blank" rel="noopener noreferrer" aria-label="Live demo of Blog Platform">
+              Live
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="skills" aria-labelledby="skills-title">
+    <h2 class="section-title" id="skills-title">Skills</h2>
+    <div class="skills-list" role="list" aria-label="List of skills">
+      <span class="skill" role="listitem" tabindex="0" aria-label="JavaScript skill">JavaScript</span>
+      <span class="skill" role="listitem" tabindex="0" aria-label="HTML5 skill">HTML5</span>
+      <span class="skill" role="listitem" tabindex="0" aria-label="CSS3 skill">CSS3</span>
+      <span class="skill" role="listitem" tabindex="0" aria-label="React skill">React</span>
+      <span class="skill" role="listitem" tabindex="0" aria-label="Node.js skill">Node.js</span>
+      <span class="skill" role="listitem" tabindex="0" aria-label="Git skill">Git</span>
+      <span class="skill" role="listitem" tabindex="0" aria-label="TypeScript skill">TypeScript</span>
+      <span class="skill" role="listitem" tabindex="0" aria-label="GraphQL skill">GraphQL</span>
+      <span class="skill" role="listitem" tabindex="0" aria-label="Sass skill">Sass</span>
+      <span class="skill" role="listitem" tabindex="0" aria-label="Webpack skill">Webpack</span>
+    </div>
+  </section>
+
+  <section id="contact" aria-labelledby="contact-title">
+    <h2 class="section-title" id="contact-title">Contact Me</h2>
+    <form id="contact-form" aria-live="polite" aria-describedby="form-response" novalidate>
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Your full name" required aria-required="true" autocomplete="name" />
+      
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" required aria-required="true" autocomplete="email" />
+      
+      <label for="message">Message</label>
+      <textarea id="message" name="message" placeholder="Your message" rows="5" required aria-required="true"></textarea>
+
+      <button type="submit">Send Message</button>
+      <p id="form-response" role="alert" aria-live="assertive" style="margin-top:1rem; min-height:1.25em;"></p>
+    </form>
+  </section>
+</main>
+<footer>
+  &copy; 2024 my-portfolio. Created with ❤️.
+</footer>
+<script>
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMenu = document.getElementById('primary-navigation');
+
+  navToggle.addEventListener('click', () => {
+    const expanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
+    navToggle.setAttribute('aria-expanded', !expanded);
+    navToggle.classList.toggle('open');
+    navMenu.classList.toggle('open');
+    if (!expanded) {
+      navMenu.querySelector('a').focus();
+    }
+  });
+
+  // Close nav menu when clicking a menu link (mobile)
+  navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      if(navMenu.classList.contains('open')){
+        navToggle.setAttribute('aria-expanded', false);
+        navToggle.classList.remove('open');
+        navMenu.classList.remove('open');
+        navToggle.focus();
+      }
+    });
+  });
+
+  // Simple contact form handling simulation
+  const form = document.getElementById('contact-form');
+  const responseMsg = document.getElementById('form-response');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    // Simple validation re-check (HTML5 validation helps)
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const message = form.message.value.trim();
+
+    if(name === "" || email === "" || message === ""){
+      responseMsg.textContent = "Please fill in all fields.";
+      responseMsg.style.color = "#f87171"; // red
+      return;
+    }
+    if(!/\S+@\S+\.\S+/.test(email)){
+      responseMsg.textContent = "Please enter a valid email address.";
+      responseMsg.style.color = "#f87171"; // red
+      return;
+    }
+
+    // Simulate sending
+    responseMsg.style.color = "#a5b4fc"; // bluish
+    responseMsg.textContent = "Sending...";
+
+    setTimeout(() => {
+      responseMsg.style.color = "#86efac"; // green
+      responseMsg.textContent = "Thank you for your message! I'll get back to you soon.";
+      form.reset();
+    }, 1500);
+  });
+</script>
+</body>
+</html>
+```
